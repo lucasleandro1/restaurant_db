@@ -1,21 +1,32 @@
 <?php 
-require 'Cart.php';
-require 'Product.php';
-include("conexao.php"); 
-  $q = "SELECT * FROM abs_food";
+include 'Cart.php';
+include 'Product.php';
+include("conexao.php");
+  $q = "SELECT * FROM abs_food WHERE abs_rest_id = 1";
   $con = $mysqli->query($q) or die($mysqli->error);
   session_start();
 
-$products = [
-  1 => ['id' => 1, 'name' => 'geladeira', 'price' => 1000, 'quantity' => 1],
-  2 => ['id' => 2, 'name' => 'mouse', 'price' => 100, 'quantity' => 1],
-  3 => ['id' => 3, 'name' => 'teclado', 'price' => 10, 'quantity' => 1],
-];
-
+//$products = [
+// ['id' => 1, 'name' => 'geladeira', 'price' => 1000, 'quantity' => 1],
+// ['id' => 2, 'name' => 'mouse', 'price' => 100, 'quantity' => 1],
+//['id' => 3, 'name' => 'teclado', 'price' => 10, 'quantity' => 1],
+//];
+$products = array();
+while($p = $con->fetch_array()) {
+  array_push($products,[
+    'id' => $p['id'], 
+    'name' => $p['name_food'], 
+    'price' => $p['price_food'], 
+    'quantity' => 1,
+    'desc' => $p['desc_food'], 
+    'cat' => $p['catg_food'], 
+  ]);
+}
 
 if (isset($_GET['id'])) {
   $id = strip_tags($_GET['id']);
-  $productInfo = $products[$id];
+  
+  $productInfo = $products[$id-1];
   $product = new Product;
   $product->setId($productInfo['id']);
   $product->setName($productInfo['name']);
@@ -29,6 +40,31 @@ if (isset($_GET['id'])) {
 var_dump($_SESSION['cart'] ?? []);
 
 ?>
+<style> 
+.button2 a{
+  border-bottom-style: none;
+}
+
+button a {
+  list-style-type: none;
+  text-decoration: none;
+  color: black;
+}
+button a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.button2 a {
+  color:white;
+  font-weight: bold;
+}
+
+.button2 a:hover {
+  color: white;
+  font-weight: bold;
+} 
+</style>
 
 <!DOCTYPE html>
 <!-- saved from url=(0053)https://getbootstrap.com.br/docs/4.1/examples/album/# -->
@@ -55,15 +91,14 @@ var_dump($_SESSION['cart'] ?? []);
           <a href="./index.php" class="navbar-brand d-flex align-items-center">
             <strong>Voltar</strong>
           </a>
-          <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-          <a href="/TDE3-main/mycart.php">Go to cart</a>
+          <button class="button2 navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+          <a class="text-decoration-none" href="/TDE3-main/mycart.php">Carrinho</a>
           </button>
         </div>
       </div>
     </header>
 
     <main role="main">
-
       <section class="jumbotron text-center">
         <div class="container">
           <h1 class="jumbotron-heading">Cardápio The Legend of Sanduíches</h1>
@@ -72,89 +107,30 @@ var_dump($_SESSION['cart'] ?? []);
       </section>
       <div class="album py-5 bg-light">
         <div class="container">
-
           <div class="row">
+            <?php foreach($products as $dado){?>
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="./Components/zelda1.jpg" data-holder-rendered="true">
+                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="./Components/<?php echo $dado['name']; ?>.jpg" data-holder-rendered="true">
                 <div class="card-body">
-                  <p class="card-text">Este é um card maior e que suporta texto abaixo, como uma introdução mais natural ao conteúdo adicional.</p>
+                <h5 class="card-title"><?php echo $dado['name']; ?></h5>
+                <p class="card-subtitle mb-2 text-muted"><?php echo $dado['cat']; ?></p>
+                <p class="card-text"><?php echo $dado['desc']; ?></p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">
-                        <a href="?id=1">Adicionar</a>
+                      <button type="button" class=" btn btn-sm btn-outline-secondary">
+                        <a href="?id=<?php echo $dado['id']; ?>">Adicionar</a>
                       </button>
                       </div>
-                    <small class="text-muted">40.99</small>
+                    <small class="text-muted">R$ <?php echo $dado['price']; ?></small>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="./Components/zelda2.jpg" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
-                <div class="card-body">
-                  <p class="card-text">Este é um card maior e que suporta texto abaixo, como uma introdução mais natural ao conteúdo adicional.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary"><a href="?id=2">Adicionar</a></button>
-                    </div>
-                    <small class="text-muted">54.99</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="./Components/zelda3.jfif" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
-                <div class="card-body">
-                  <p class="card-text">Este é um card maior e que suporta texto abaixo, como uma introdução mais natural ao conteúdo adicional.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary"><a href="?id=3">Adicionar</a></button>
-                    </div>
-                    <small class="text-muted">100.00</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-           
-          </div>
+            <?php } ?>
         </div>
       </div>
-
-      <?php while($dado = $con->fetch_array()) { ?>
-      <div class="container">
-        <div class="row ">
-          <div class="col-md-5">
-            <tr>
-              <td><?php echo $dado['name_food']; ?></td>
-              <td><?php echo $dado['desc_food']; ?></td>
-              <td><?php echo $dado['price_food']; ?></td>
-              <td><?php echo $dado['catg_food']; ?></td>
-              <td><?php echo $dado['rate_food']; ?></td>
-            </tr>
-          </div>
-
-        <!--
-          <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                  <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" src="" alt="Opção 1" style="height: 225px; width: 100%; display: block;" data-holder-rendered="true">
-                  <div class="card-body">
-                    <p class="card-text"></p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <a href="?adicionar=">Adicionar</a>
-                        <small class="text-muted"></small>
-                      </div>
-                  </div>
-              </div>
-            </div>-->
-          </div>
-        </div>
-        
-  
     </main>
-    <?php } ?>
-
-</body>
+  </body>
 </html>
+

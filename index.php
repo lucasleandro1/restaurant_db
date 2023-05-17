@@ -17,11 +17,9 @@
     <main role="main">
       <div class="jumbotron">
         <div class="container">
-          <h1 class="display-3">Hello Wordo</h1>
+          <h1 class="display-3">Restaurantes</h1>
           <p>
-             Este é um template para um simples marketing ou website informacional.
-             Ele inclui um callout grande (denominado jumbotron) e três conteúdos 
-             adicionais. Use-o como um ponto de partida para algo mais peculiar.
+             
           </p>
         </div>
       </div>
@@ -32,9 +30,7 @@
               <img src="./Components/link4.png" alt="" >            
             <h2>The Legend of Sanduíches</h2>
             <p>
-             Este é um template para um simples marketing ou website informacional.
-             Ele inclui um callout grande (denominado jumbotron) e três conteúdos 
-             adicionais. Use-o como um ponto de partida para algo mais peculiar.
+             Hamburgueria
             </p>
             <p><a href="./legend-burguer.php" class="btn btn-primary btn-lg" role="button">Compre Aqui</a></p>
           </div>
@@ -43,9 +39,7 @@
             <img src="./Components/cosmic.png" alt="">   
             <h2>Constelações</h2>
             <p>
-             Este é um template para um simples marketing ou website informacional.
-             Ele inclui um callout grande (denominado jumbotron) e três conteúdos 
-             adicionais. Use-o como um ponto de partida para algo mais peculiar.
+            Pastelaria
             </p>
             <p><a href="./constalacoes.php" class="btn btn-primary btn-lg" role="button">Compre Aqui</a></p>
           </div>
@@ -54,9 +48,7 @@
             <img src="./Components/churas.png" alt="">   
             <h2>Churrascaria Donleoni</h2>
             <p>
-             Este é um template para um simples marketing ou website informacional.
-             Ele inclui um callout grande (denominado jumbotron) e três conteúdos 
-             adicionais. Use-o como um ponto de partida para algo mais peculiar.
+             Churrascaria
             </p>
             <p><a href="./churrascariaDonleoni.php" class="btn btn-primary btn-lg" role="button">Compre Aqui</a></p>
           </div>

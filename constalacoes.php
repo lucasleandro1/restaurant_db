@@ -2,14 +2,15 @@
 
 require 'Cart.php';
 require 'Product.php';
-
+include("conexao.php"); 
+  $q = "SELECT * FROM abs_food WHERE abs_rest_id=2";
+  $con = $mysqli->query($q) or die($mysqli->error);
 session_start();
 
 $products = [
   1 => ['id' => 1, 'name' => 'geladeira', 'price' => 1000, 'quantity' => 1],
   2 => ['id' => 2, 'name' => 'mouse', 'price' => 100, 'quantity' => 1],
-  3 => ['id' => 3, 'name' => 'teclado', 'price' => 10, 'quantity' => 1],
-  4 => ['id' => 4, 'name' => 'monitor', 'price' => 5000, 'quantity' => 1],
+  3 => ['id' => 3, 'name' => 'teclado', 'price' => 10, 'quantity' => 1]
 ];
 
 
@@ -29,6 +30,31 @@ if (isset($_GET['id'])) {
 var_dump($_SESSION['cart'] ?? []);
 
 ?>
+<style> 
+.button2 a{
+  border-bottom-style: none;
+}
+
+button a {
+  list-style-type: none;
+  text-decoration: none;
+  color: black;
+}
+button a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.button2 a {
+  color:white;
+  font-weight: bold;
+}
+
+.button2 a:hover {
+  color: white;
+  font-weight: bold;
+} 
+</style>
 <!DOCTYPE html>
 <!-- saved from url=(0053)https://getbootstrap.com.br/docs/4.1/examples/album/# -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -53,8 +79,8 @@ var_dump($_SESSION['cart'] ?? []);
           <a href="./index.php" class="navbar-brand d-flex align-items-center">
             <strong>Voltar</strong>
           </a>
-          <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-          <a href="/TDE3-main/mycart.php">Go to cart</a>
+          <button class="button2 navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+          <a href="/TDE3-main/mycart.php">Carrinho</a>
           </button>
         </div>
       </div>
@@ -71,57 +97,29 @@ var_dump($_SESSION['cart'] ?? []);
 
       <div class="album py-5 bg-light">
         <div class="container">
-
           <div class="row">
+            <?php while($dado = $con->fetch_array()) { ?>
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="./Components/constelacoes1.jpg" data-holder-rendered="true">
+                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="./Components/<?php echo $dado['name_food']; ?>.jpg" data-holder-rendered="true">
                 <div class="card-body">
-                  <p class="card-text">Este é um card maior e que suporta texto abaixo, como uma introdução mais natural ao conteúdo adicional.</p>
+                <h5 class="card-title"><?php echo $dado['name_food']; ?></h5>
+                <p class="card-subtitle mb-2 text-muted"><?php echo $dado['catg_food']; ?></p>
+                <p class="card-text"><?php echo $dado['desc_food']; ?></p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary">
                         <a href="?id=1">Adicionar</a>
                       </button>
                       </div>
-                    <small class="text-muted">40.99</small>
+                    <small class="text-muted">R$ <?php echo $dado['price_food']; ?></small>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="./Components/constelacoes2.jpg" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
-                <div class="card-body">
-                  <p class="card-text">Este é um card maior e que suporta texto abaixo, como uma introdução mais natural ao conteúdo adicional.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary"><a href="?id=2">Adicionar</a></button>
-                    </div>
-                    <small class="text-muted">54.99</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="./Components/constelacoes3.jfif" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
-                <div class="card-body">
-                  <p class="card-text">Este é um card maior e que suporta texto abaixo, como uma introdução mais natural ao conteúdo adicional.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary"><a href="?id=3">Adicionar</a></button>
-                    </div>
-                    <small class="text-muted">100.00</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-           
-          </div>
+            <?php } ?>
         </div>
       </div>
-
     </main>
   </body>
 </html>
