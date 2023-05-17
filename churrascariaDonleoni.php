@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
   $cart->add($product);
 }
 
-var_dump($_SESSION['cart'] ?? []);
+// var_dump($_SESSION['cart'] ?? []);
 
 ?>
 <style> 

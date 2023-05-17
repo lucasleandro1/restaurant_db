@@ -9,7 +9,7 @@
     if($mysqli->connect_errno) {
       echo "Falha ao conectar: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
     } else {
-      echo "Deu certo";
+      
     }
 
     //$q = "SELECT * FROM abs_food";

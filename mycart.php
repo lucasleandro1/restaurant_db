@@ -8,7 +8,7 @@ session_start();
 $cart = new Cart;
 $productsInCart = $cart->getCart();
 
-var_dump($productsInCart);
+// var_dump($productsInCart);
 
 if (isset($_GET['id'])) {
   $id = strip_tags($_GET['id']);
@@ -18,8 +18,16 @@ if (isset($_GET['id'])) {
 
 ?>
 <style>
-  .body{background-color: #2f3640;}
+.display {
+  display: table-row;
+  justify-content: center;
+  align-items: center;
+}
 
+li{
+  list-style-type: none;
+  padding-left: 15px;
+}
 </style>
 
   
@@ -44,9 +52,9 @@ if (isset($_GET['id'])) {
           <a href="./index.php" class="navbar-brand d-flex align-items-center">
             <strong>Voltar</strong>
           </a>
-          <button class="button2 navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-          <a class="text-decoration-none" href="/TDE3-main/mycart.php">Carrinho</a>
-          </button>
+          <!-- <button class="button2 navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation"> -->
+          <!-- <a class="text-decoration-none" href="/TDE3-main/mycart.php">Carrinho</a> -->
+          <!-- </button> -->
         </div>
       </div>
     </header>
@@ -61,40 +69,29 @@ if (isset($_GET['id'])) {
 
   <div class="album py-5 bg-light">
         <div class="container">
-          <div class="row">
+
           <?php if (count($productsInCart) <= 0) : ?>
             Nenhum produto no carrinho
           <?php endif; ?>
           <?php foreach ($productsInCart as $product) : ?>
             <div class="col-md-4">
+            
             <?php echo $product->getName(); ?>
-            <input type="text" value="<?php echo $product->getQuantity() ?>">
-            Price: R$ <?php echo number_format($product->getPrice(), 2, ',', '.') ?>
-            Subtotal: R$ <?php echo number_format($product->getPrice() * $product->getQuantity(), 2, ',', '.') ?>
-            <a href="?id=<?php echo $product->getId(); ?>">remove</a>
-            </li></p>
-            <?php endforeach; ?>
+            <div class="display">
+              Quantidade: <?php echo $product->getQuantity() ?>"
+                <div>
+              Price: R$ <?php echo number_format($product->getPrice(), 2, ',', '.') ?>
+              Subtotal: R$ <?php echo number_format($product->getPrice() * $product->getQuantity(), 2, ',', '.') ?>
+              <div class="btn-group">
+              <a href="?id=<?php echo $product->getId(); ?>"><button class="btn btn-danger">remove</button></a>
+            
+          </div>
         </div>
       </div>
-    <?php if (count($productsInCart) <= 0) : ?>
-      Nenhum produto no carrinho
-    <?php endif; ?>
-
-    <?php foreach ($productsInCart as $product) : ?>
-      
-        <div class="bar-nav">
-          <li>
-            <?php echo $product->getName(); ?>
-            <input type="text" value="<?php echo $product->getQuantity() ?>">
-            Price: R$ <?php echo number_format($product->getPrice(), 2, ',', '.') ?>
-            Subtotal: R$ <?php echo number_format($product->getPrice() * $product->getQuantity(), 2, ',', '.') ?>
-            <a href="?id=<?php echo $product->getId(); ?>">remove</a>
-          </li>
-        <?php endforeach; ?>
-        <li>Total: R$ <?php echo number_format($cart->getTotal(), 2, ',', '.'); ?></li>
-      </ul>
-        </div>
-
+    </div>
+    <?php endforeach; ?>
+    <li>Total: R$ <?php echo number_format($cart->getTotal(), 2, ',', '.'); ?></li>
+</div>
 </body>
 
 </html>
