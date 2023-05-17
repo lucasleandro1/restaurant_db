@@ -16,16 +16,16 @@ require_once "abstract.php";
       }
 
     public function getid(){
-        return "\n|ID: #".$this->id_receipt;
+        return $this->id_receipt;
       }
       public function getpay(){
-        return "\n|Forma de Pagamento: ".$this->pay_receipt;
+        return $this->pay_receipt;
       }
       public function getclient(){
-        return"\n|Cliente: ".$this->client_receipt;
+        return $this->client_receipt;
       }
       public function getcpf(){
-        return "\n|CPF: ".$this->cpf_receipt;
+        return $this->cpf_receipt;
       }
 }
 

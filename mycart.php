@@ -91,6 +91,9 @@ li{
     </div>
     <?php endforeach; ?>
     <li>Total: R$ <?php echo number_format($cart->getTotal(), 2, ',', '.'); ?></li>
+    <button>
+      
+    </button>
 </div>
 </body>
 
