@@ -1,3 +1,4 @@
+
 <html>
   <head>
       <meta charset='utf-8'>
@@ -29,7 +30,7 @@
         <div class="row">
           <div class="col-md-3">
               <img src="./Components/link4.png" alt="" >            
-            <h2>@conn->GET</h2>
+            <h2>The Legend of Sanduíches</h2>
             <p>
              Este é um template para um simples marketing ou website informacional.
              Ele inclui um callout grande (denominado jumbotron) e três conteúdos 

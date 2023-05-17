@@ -1,15 +1,16 @@
 <?php
-class classconexao{
 // conexão com o banco de dados
-  public function conectaDB(){
-    try{
-      $con= new mysqli("localhost","root","","test");
-      return $con;
-    }catch (Exception $Erro){
-      return $Erro->getMessage();
+    $host = "localhost";
+    $pass = "";
+    $user = "root";
+    $db = "restaurante";
+
+    $mysqli = new mysqli($host, $user, $pass, $db);
+    if($mysqli->connect_errno) {
+      echo "Falha ao conectar: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+    } else {
+      echo "Deu certo";
     }
 
-  }
-
-}
-?>
+    //$q = "SELECT * FROM abs_food";
+    //$mysqli->query($q) or die($mysqli->error);
